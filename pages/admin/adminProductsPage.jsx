@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import getFormatPrice from "../../src/utils/price-format";
 import axios from "axios";
 import { CiEdit, CiTrash } from "react-icons/ci";
+import LoadingAnimation from "../../src/components/loadingAnimation";
+import DeleteModel from "../../src/components/deleteModel";
 
 
 
@@ -11,9 +13,13 @@ export default function AdminProductsPage() {
 
 
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
+    if(loading){
     const Token = localStorage.getItem("token");
+
     axios.get(import.meta.env.VITE_API_URL + "/products", {
       headers: {
         Authorization: "Bearer " + Token
@@ -21,11 +27,12 @@ export default function AdminProductsPage() {
     }).then((response) => {
 
       setProducts(response.data);
-      console.log(response.data);
+      setLoading(false)
 
     });
+  }
 
-  }, []);
+  }, [loading]);
 
 
   return (
@@ -41,7 +48,9 @@ export default function AdminProductsPage() {
       }
 */}
       {/* Table Card Wrapper */}
-      <div
+      {loading?<div className="w-full h-full flex justify-center items-center">
+        <LoadingAnimation/>
+      </div>:<div
         className="rounded-2xl overflow-hidden shadow-xl"
         style={{
           background: "rgba(255,255,255,0.85)",
@@ -173,25 +182,7 @@ export default function AdminProductsPage() {
                         <CiEdit />
                       </Link>
 
-                      <CiTrash
-                        className="hover:text-red-600 cursor-pointer"
-                        onClick={() => {
-                          const token = localStorage.getItem("token");
-
-                          axios
-                            .delete(import.meta.env.VITE_API_URL + "/products/" + item.productId, {
-                              headers: {
-                                Authorization: "Bearer " + token,
-                              },
-                            })
-                            .then(() => {
-                              toast.success("Product deleted successfully");
-                            })
-                            .catch((err) => {
-                              toast.error(err?.response?.data?.message || "Failed to delete product");
-                            });
-                        }}
-                      />
+                      <DeleteModel product={item} setLoading={setLoading}/>
                     </div>
                   </td>
 
@@ -216,7 +207,7 @@ export default function AdminProductsPage() {
             Showing <span className="font-semibold">{products.length}</span> products
           </p>
         </div>
-      </div>
+      </div>}
       <Link to="/admin/add-product" className="text-white bg-secondary w-[50px] h-[50px] flex justify-center items-center text-2xl rounded-[20px] hover:rounded-full fixed bottom-12 right-16">
 
 
