@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme{
+    --color-primary: #BDE8F5;
+  --color-secondary: #4988C4;
+  --color-accent: #1C4D8D;
+
+}
+/* transparent scroll track class called hide-scroll-track */
+.hide-scroll-track::-webkit-scrollbar{
+    width: 8px;
+}
+.hide-scroll-track::-webkit-scrollbar-track{
+    background: transparent;
+}
+.hide-scroll-track::-webkit-scrollbar-thumb{
+  background-color:#1C4D8D;
+  border-radius: 20px;
+  border: 3px solid transparent;
+}

@@ -1,0 +1,125 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"
+import toast from "react-hot-toast";
+
+
+export default function Login() {
+
+   const[email, setEmail] = useState("")
+   const[password, setPassword] = useState("")
+   const navigate = useNavigate()
+/*
+   function login(){
+      console.log(email)
+      console.log(password)
+      axios.post("http://localhost:3000/users/login", 
+        {
+        email: email,
+        password:password
+        }
+    ).then(
+        (response)=>{
+            console.log(response)
+        }
+    ).catch(
+        (error)=>{
+           console.log(error)
+        }
+    )
+   }
+          */
+
+   async function login(){
+    console.log("API URL =", import.meta.env.VITE_API_URL);
+
+       
+    try{
+          const response = await axios.post(import.meta.env.VITE_API_URL + "/users/login",
+            {
+                email: email,
+                password:password
+            }
+          )
+          console.log(response)
+
+          toast.success("Login Successful")
+          localStorage.setItem("token" , response.data.token)
+          
+          if(response.data.role == "admin"){
+            //we should redirect to admin dashboard
+            //window.location.href = "/admin/"
+
+            navigate("/admin/")
+          }else{
+            //redirect to home page
+          }
+
+       }catch(error){
+        console.log(error)
+        //console.log("Login Faild")
+        toast.error("Login Faild")
+       }
+          
+         
+    
+}
+   
+
+    return (
+        <div className="w-full h-full bg-[url('/background.jpg')] bg-cover bg-no-repeat bg-center flex">
+            <div className="w-[50%] h-full flex justify-center items-center flex-col">
+                <img src="/Logo.png" alt="Logo" className="w-[300px]" />
+                <h1 className="text-4xl font-bold mt-5 text-white">Isuri Computers</h1>
+
+            </div>
+            <div className="w-[50%] h-full flex items-center justify-center">
+                <div className="backdrop-blur-3xl w-[450px] h-[600px] shadow-2xl rounded-lg flex flex-col justify-center">
+                    <input
+                        type="email"
+                        placeholder="email"
+                        onChange={
+                            (e)=>{
+                               setEmail(e.target.value)
+                            }
+                        }
+                        className="m-5 p-3 w-[90%] h-[50px] rounded-lg border border-secondary outline-none"
+                    />
+
+                    <input
+                        type="password"
+                        placeholder="password"
+                        onChange={
+                            (e)=>{
+                                setPassword(e.target.value)
+                            }
+                        }
+                        className="m-5 p-3 w-[90%] h-[50px] rounded-lg border border-secondary outline-none"
+                    />
+                    <button  onClick={login} className="m-5 p-3 w-[90%] h-[50px] rounded-lg bg-sky-400 text-white font-bold">
+                        Login
+                    </button>
+                    <p className="w-full text-right text-white pr-5">
+                        Foggot Password ?
+                        <Link to="/forgot-password" className="text-sky-400">
+                            Reset
+                        </Link>
+                    </p>
+
+                    <button className="m-5 p-3 w-[90%] h-[50px] rounded-lg border border-sky-400 text-white font-bold">
+                        Login with Google
+                    </button>
+                    <p className="w-full text-right text-white pr-5">
+                        Don't have an account?
+                        <Link to="/register" className="text-sky-400">
+                            Register
+                        </Link></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    )
+}
