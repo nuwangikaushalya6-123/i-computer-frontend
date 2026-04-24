@@ -5,6 +5,7 @@ import { LuUsersRound } from "react-icons/lu";
 import AdminProductsPage from "./admin/adminProductsPage";
 import AdminAddProductPage from "./admin/adminAddProductPage";
 import AdminUpdateProductPage from "./admin/adminUpdateProductPage";
+import AdminOrdersPage from "./admin/adminOrdersPage";
 
 export default function Admin(){
     return(
@@ -17,7 +18,7 @@ export default function Admin(){
             </div>
             <div className="w-[calc(100%-300px)] h-full border-8 border-secondary bg-primary rounded-[20px] text text-black p-4">
                <Routes>
-                <Route path="/" element={<h1>order page</h1>}/>
+                <Route path="/" element={<AdminOrdersPage/>}/>
                 <Route path="/product" element={<AdminProductsPage />} />
                 <Route path="/Users" element={<h1>Users page</h1>}/>
                 <Route path="/add-product" element={<AdminAddProductPage/>}/>

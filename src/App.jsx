@@ -17,7 +17,7 @@ function App() {
       <div className="w-full h-screen bg-primary text-secondary">
         <Toaster position="top-right"/>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<Home />} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/test" element={<Test/>}/>
