@@ -1,20 +1,26 @@
-import { useState } from "react"
+import {  useState } from "react"
 import {  getCartTotal } from "../src/cart"
 import { BiMinus, BiPlus } from "react-icons/bi"
 import getFormatPrice from "../src/utils/price-format"
 import { useLocation, useNavigate } from "react-router-dom"
-import axios from "axios"
+
 import CheckOutDetailsModel from "../src/components/checkoutDetailsModel"
+
 
 export default function Checkout() {
     const location = useLocation();
     const [cart , setCart] = useState(location.state || [])
+    const [firstName , setFirstName] = useState("")
+    const [lasttName , setLastName] = useState("")
+    
     
     const navigate = useNavigate();
      
     if(location.state == null){
         navigate("/products")
     }
+
+    
 
     
 

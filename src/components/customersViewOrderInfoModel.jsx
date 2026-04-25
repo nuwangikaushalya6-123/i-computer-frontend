@@ -2,41 +2,14 @@ import { useState } from "react";
 import getFormattedDate from "../utils/date-format";
 import getFormattedPrice from "../utils/price-format";
 import { CgClose } from "react-icons/cg";
-import toast from "react-hot-toast";
-import axios from "axios";
 
-export default function ViewOrderInfoModal(props) {
+
+export default function CustomerViewOrderInfoModal(props) {
 	const [isVisible, setIsVisible] = useState(false);
 	const order = props.order;
-    const [status, setStatus] = useState(order.status)
-    const [notes, setNotes] = useState(order.notes)
+    
 
-     async function handleChange(){
-        try{
-
-            const token = localStorage.getItem("token")
-
-            await axios.put(import.meta.env.VITE_API_URL+"/orders/"+order.orderId , {
-                status : status,
-                notes : notes
-            } , {
-                headers : {
-                    "Authorization" : `Bearer ${token}`
-                }
-            })
-
-            toast.success("Order updated successfully")
-            
-           setIsVisible(false);
-
-           setTimeout(() => {
-            window.location.reload();
-        }, 1000);
-
-        }catch{
-            toast.error("Failed to update order")
-        }
-    }
+     
 
 	return (
 		<>
@@ -78,19 +51,14 @@ export default function ViewOrderInfoModal(props) {
                                 <h2 className="text-sm font-thin text-white p-5">
                                     Status: {order.status}
                                 </h2>
-                               <select value={status} onChange={(e) => setStatus(e.target.value)} className="ml-5 p-2 rounded text-black">
-    <option value="pending">Pending</option>
-    <option value="shipped">Shipped</option>
-    <option value="delivered">Delivered</option>
-    <option value="cancelled">Cancelled</option>
-</select>
+            
                             </div>
 
                             <div className="w-full flex items-start px-5">
                                 <h1 className="text-lg font-semibold text-white mr-5">
                                     Notes:
                                 </h1>
-                                <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="  w-[350px] h-[60px] text-white p-2 border rounded-lg border-white"/>
+                                <p>{order.notes}</p>
                                     </div>
 						</div>
                         <div className="w-full h-[400px] p-5 overflow-y-scroll">
@@ -114,12 +82,7 @@ export default function ViewOrderInfoModal(props) {
                                 )
                             }
                         </div>
-                        { 
-                         (order.status != status || order.notes != notes) &&
-                            <button onClick={handleChange} className="bottom-5 right-5 absolute bg-accent text-white p-2 rounded-lg cursor-pointer">
-                                Save changes
-                            </button>
-                        }
+                        
 					</div>
 				</div>
 			)}

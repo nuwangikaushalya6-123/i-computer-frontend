@@ -4,6 +4,8 @@ import ProductPage from "./productPage";
 import Overview from "./overview";
 import Cart from "./admin/cart";
 import Checkout from "./checkout";
+import MyOrdersPage from "./myOrdersPage";
+import SettingsPage from "./settings";
 
 export default function Home(){
     return(
@@ -18,6 +20,8 @@ export default function Home(){
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/overview/:productId" element={<Overview/>}/>
                 <Route path="checkout" element={<Checkout/>}/>
+                <Route path="my-orders" element={<MyOrdersPage/>}/>
+                <Route path="settings" element={<SettingsPage/>}/>
                 <Route path="/*" element={<div>404 Not Found</div>}/>
             </Routes>
         </div>

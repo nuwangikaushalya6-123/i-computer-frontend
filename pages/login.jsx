@@ -52,7 +52,7 @@ export default function Login() {
 
             navigate("/admin/")
           }else{
-            //redirect to home page
+            navigate("/")
           }
 
        }catch(error){
@@ -112,7 +112,7 @@ export default function Login() {
                     <p className="w-full text-right text-white pr-5">
                         Don't have an account?
                         <Link to="/register" className="text-sky-400">
-                            Register
+                            Sign Up
                         </Link></p>
 
                 </div>
