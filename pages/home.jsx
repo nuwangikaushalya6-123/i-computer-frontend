@@ -9,7 +9,7 @@ import SettingsPage from "./settings";
 
 export default function Home(){
     return(
-        <div className="w-full min-h-screen bg-blue-200 ">
+        <div className="w-full h-screen overflow-y-scroll ">
             <Header/>
             <Routes>
                 <Route path="/" element={<div>Home page content</div>}/>

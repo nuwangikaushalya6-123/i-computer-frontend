@@ -68,13 +68,15 @@ export default function Login() {
 
     return (
         <div className="w-full h-full bg-[url('/background.jpg')] bg-cover bg-no-repeat bg-center flex">
-            <div className="w-[50%] h-full flex justify-center items-center flex-col">
+            <div className="w-[50%]  h-full hidden lg:flex justify-center items-center flex-col">
                 <img src="/Logo.png" alt="Logo" className="w-[300px]" />
                 <h1 className="text-4xl font-bold mt-5 text-white">Isuri Computers</h1>
 
             </div>
-            <div className="w-[50%] h-full flex items-center justify-center">
+            <div className="w-full lg:w-[50%]  h-full  flex justify-center items-center">
                 <div className="backdrop-blur-3xl w-[450px] h-[600px] shadow-2xl rounded-lg flex flex-col justify-center">
+                <img src="/Logo.png" className="w-[100px] mx-auto lg:hidden" />
+					<h1 className="lg:hidden text-3xl font-semibold mt-5 text-white text-center">Isuri Computers</h1>
                     <input
                         type="email"
                         placeholder="email"

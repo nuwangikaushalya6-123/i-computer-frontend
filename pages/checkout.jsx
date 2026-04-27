@@ -34,13 +34,13 @@ export default function Checkout() {
             cart.map((cartItem , index)=>{
                  
                 return(
-                    <div key={index} className="w-[600px] h-[150px] gap-4 bg-white flex flex-row rounded-lg shadow overflow-hidden">
+                     <div key={index} className="lg:w-[600px] w-full lg:h-[150px] bg-white flex flex-row rounded-lg shadow overflow-hidden">
                         <img className="h-[150px] aspect-square object-cover" src={cartItem.product.image} alt={cartItem.name}/>
                         <div className="h-full w-[280px] p-4 flex flex-col justify-between overflow-hidden ">
 
                             <p className="text-xs text-gray-500">{cartItem.product.productId}</p>
                             <h1 className="text-xl font-bold ">{cartItem.product.name}</h1>
-                            <div className="w-[210px] h-[50px] border rounded-full flex overflow-hidden">
+                             <div className="lg:w-[210px] h-[50px] border border-accent rounded-full flex overflow-hidden justify-between gap-2 md:gap-3 px-2">
                                <button onClick={
                                 ()=>{
 
@@ -51,19 +51,19 @@ export default function Checkout() {
                                         newCart.splice(index,1)
                                         
                                     }
-                                    setCart(cart)
+                                    setCart(newCart)
                                 }
-                               } className="w-[700px] h-full flex justify-center items-center text-lg font-bold text-gray-700 hover:bg-blue-400 ">
+                              } className="lg:w-[70px] h-full flex justify-center items-center  text-2xl font-bold text-gray-700 hover:bg-accent">
                                 <BiMinus/>
                                </button>
-                               <span className="w-[700px] h-full flex justify-center items-center text-lg font-bold text-gray-700">{cartItem.qty}</span>
+                               <span className="lg:w-[70px] h-full flex justify-center items-center  text-lg font-bold text-gray-700">{cartItem.qty}</span>
                                <button onClick={
                                 ()=>{
                                    const newCart = [...cart]
                                    newCart[index].qty = newCart[index].qty + 1
                                    setCart(newCart)
                                 }
-                               } className="w-[700px] h-full flex justify-center items-center text-lg font-bold text-gray-700 hover:bg-blue-400 ">
+                              } className="lg:w-[70px] h-full flex justify-center items-center  text-2xl font-bold text-gray-700 hover:bg-accent">
                                 <BiPlus/>
                                </button>
                             </div>
@@ -87,7 +87,7 @@ export default function Checkout() {
                 )
             })
            }
-           <div className="bg-white w-[600px] h-[100px] sticky bottom-0 z-50 rounded-xl shadow flex justify-between items-center px-5">
+             <div className="bg-white w-full  lg:w-[600px] lg:h-[150px] sticky bottom-0 rounded-xl shadow flex flex-col md:flex-row justify-between items-center px-4 md:px-5 py-3 gap-3">
     
    <CheckOutDetailsModel cart={cart} />
 
