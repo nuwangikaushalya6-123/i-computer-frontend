@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"
 import toast from "react-hot-toast";
+import { useGoogleLogin } from '@react-oauth/google';
 
 
 export default function Login() {
@@ -9,6 +10,30 @@ export default function Login() {
    const[email, setEmail] = useState("")
    const[password, setPassword] = useState("")
    const navigate = useNavigate()
+ const googleLogin = useGoogleLogin(
+		{
+			onSuccess: (response)=>{
+				axios.post(import.meta.env.VITE_API_URL + "/users/google-login" , {token : response.access_token}).then(
+					(response)=>{
+						toast.success("Login Successful")
+						localStorage.setItem("token" , response.data.token)
+						if(response.data.role == "admin"){
+							navigate("/admin/")
+						}else{
+							navigate("/")
+						}
+					}
+				).catch(
+					(err)=>{
+						toast.error(err?.response?.data?.message || "Google login failed. Please try again.")
+					}
+				)
+			},
+			onError: (error)=>{
+				toast.error("Google login failed. Please try again.")
+			}
+		}
+	)
 /*
    function login(){
       console.log(email)
@@ -103,12 +128,12 @@ export default function Login() {
                     </button>
                     <p className="w-full text-right text-white pr-5">
                         Foggot Password ?
-                        <Link to="/forgot-password" className="text-sky-400">
+                        <Link to="/forgotPassword" className="text-sky-400">
                             Reset
                         </Link>
                     </p>
 
-                    <button className="m-5 p-3 w-[90%] h-[50px] rounded-lg border border-sky-400 text-white font-bold">
+                    <button onClick={googleLogin} className="m-5 p-3 w-[90%] h-[50px] rounded-lg border border-sky-400 text-white font-bold">
                         Login with Google
                     </button>
                     <p className="w-full text-right text-white pr-5">
